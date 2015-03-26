@@ -93,6 +93,11 @@ class CloudFlare( object ):
         fmt = "a=%s&email=%s&tkn=%s&z=%s&type=%s&content=%s&name=%s&ttl=1"
         values = ('rec_new', self.EMAIL, self.TOKEN, zone, _type, content, name)
         return self.callAPI( fmt % values )
+    # Create new DNS MX/SRV Record
+    def rec_new_prio( self, zone, _type, prio, content, name ):
+        fmt = "a=%s&email=%s&tkn=%s&z=%s&type=%s&prio=%s&content=%s&name=%s&ttl=1"
+        values = ('rec_new', self.EMAIL, self.TOKEN, zone, _type, prio, content, name)
+        return self.callAPI( fmt % values )
 
 
     # Delete DNS record
@@ -149,11 +154,26 @@ if __name__ == "__main__":
                 ### Only continue if content was provided for DNS data
                 if not len(sys.argv) < 6:
                     #### Split data into core pieces
-                    dns, create, domain, tld, type = sys.argv[3].split('.', 5)
-                    # Assemble domain
-                    domain = '%s.%s' %(domain, tld)
-                    # Print json response
-                    print json.dumps(cfapi.rec_new(domain, type, sys.argv[4], sys.argv[5]))
+                    arg = sys.argv[3].split('.')
+                    # If MX type were used
+                    if arg[4] == 'MX':
+                        try:
+                            dns, create, domain, tld, type, prio = sys.argv[3].split('.', 6)
+                            # Assemble domain
+                            domain = '%s.%s' %(domain, tld)
+                            print json.dumps(cfapi.rec_new_prio(domain, type, prio, sys.argv[4], sys.argv[5]))
+                        except Exception as e:
+                            print 'Usage: dns.create.example.com.MX/SRV.priority "127.0.0.1" "localhost"'
+                        
+                    else:
+                        try:
+                            dns, create, domain, tld, type = sys.argv[3].split('.', 5)
+                            # Assemble domain
+                            domain = '%s.%s' %(domain, tld)
+                            # Print json response
+                            print json.dumps(cfapi.rec_new(domain, type, sys.argv[4], sys.argv[5]))
+                        except Exception as e:
+                            print 'Usage: dns.create.example.com.A "127.0.0.1" "localhost"'
                 else:
                     print 'Usage: dns.create.example.com.A "127.0.0.1" "localhost"'
                     
