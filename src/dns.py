@@ -176,6 +176,30 @@ if __name__ == "__main__":
                     dns, domain, tld = sys.argv[3].split('.', 3)
                     # Assemble domain
                     domain = '%s.%s' %(domain, tld)
+                    if not len(sys.argv) < 5:
+                        ## If readable was entered
+                        if sys.argv[4] == 'readable':
+                            data = cfapi.rec_load_all(domain)
+                            
+                            for i, value in enumerate(data['response']['recs']['objs']):
+                                print '%s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s %s:%s' %('display_content', data['response']['recs']['objs'][i]['display_content'],
+                                'display_name', data['response']['recs']['objs'][i]['display_name'],
+                                'name', data['response']['recs']['objs'][i]['name'],
+                                'prio', data['response']['recs']['objs'][i]['prio'],
+                                'auto_ttl', data['response']['recs']['objs'][i]['auto_ttl'],
+                                'rec_hash', data['response']['recs']['objs'][i]['rec_hash'],
+                                'rec_id', data['response']['recs']['objs'][i]['rec_id'],
+                                'content', data['response']['recs']['objs'][i]['content'],
+                                'service_mode', data['response']['recs']['objs'][i]['service_mode'],
+                                'ssl_expires_on', data['response']['recs']['objs'][i]['ssl_expires_on'],
+                                'ssl_id', data['response']['recs']['objs'][i]['ssl_id'],
+                                'ssl_status', data['response']['recs']['objs'][i]['ssl_status'],
+                                'ttl', data['response']['recs']['objs'][i]['ttl'],
+                                'zone_name', data['response']['recs']['objs'][i]['zone_name'],
+                                'type', data['response']['recs']['objs'][i]['type'],
+                                'ttl_ceil', data['response']['recs']['objs'][i]['ttl_ceil'])
+                            sys.exit()
+                    
                     # Print json response
                     print json.dumps(cfapi.rec_load_all(domain))
                 except Exception as e:
