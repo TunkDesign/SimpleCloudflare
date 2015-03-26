@@ -41,11 +41,11 @@ $ dns.py EMAIL APIKEY dns.create.example.com.A 127.0.0.1 localhost
 The **dns.create.domain.type** action will create a new DNS record on the selected domain.
 
 #####Examples
-- **Create an A record** - *Point/Spoof a subdomain to an IP address* - ***This points localhost.example.com to 127.0.0.1 ***
+- **Create an A record** - *Point/Spoof a subdomain to an IP address* - ***This points localhost.example.com to 127.0.0.1***
 ```sh
 $ dns.py EMAIL APIKEY dns.create.example.com.A 127.0.0.1 localhost
 ```
-- **Create a CNAME record** - *Create a subdomain as a domain alias* - ***This makes search.example.com show the content on google.com ***
+- **Create a CNAME record** - *Create a subdomain as a domain alias* - ***This makes search.example.com show the content on google.com***
 ```sh
 $ dns.py EMAIL APIKEY dns.create.example.com.CNAME google.com search
 ```
