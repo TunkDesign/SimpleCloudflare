@@ -25,6 +25,11 @@ The **zones** action will show you a list of all domains on the selected Cloudfl
 $ dns.py EMAIL APIKEY dns.example.com
 ```
 The **dns.domain** action will show you a list of all the DNS records that the selected domain has.
+####dns.domain readable
+```sh
+$ dns.py EMAIL APIKEY dns.example.com readable
+```
+The **dns.domain readable** action is the same as above but outputs readable data instead of a JSON mess.
 ####dns.create.domain.type "content" "name"
 ```sh
 $ dns.py EMAIL APIKEY dns.create.example.com.A 127.0.0.1 localhost
